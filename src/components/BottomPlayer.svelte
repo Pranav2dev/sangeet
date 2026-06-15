@@ -73,7 +73,7 @@ bind:this={audio}
       <div
         class="w-full h-full px-5 flex items-center justify-between bg-transparent"
       >
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 xxl:w-[60%] xl:w-[60%] lg:w-[60%] sm:w-[60%] w-[60%]">
           <img
             src={songSelected.poster_url}
             class="w-10 rounded-lg border border-[gray]"
@@ -81,7 +81,7 @@ bind:this={audio}
             srcset={songSelected.poster_url}
           />
 
-          <div class="flex flex-col w-[60%]">
+          <div class="flex flex-col w-full">
             <h3
               class="text-white name opacity-[0.75] text-sm text-nowrap overflow-hidden"
             >
