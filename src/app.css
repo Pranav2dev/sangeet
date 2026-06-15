@@ -2,19 +2,19 @@
 
 @font-face {
   font-family: "SF";
-  src: url("../font-regular.otf");
+  src: url("./lib/assets/fonts/font-regular.otf");
   font-weight: 500;
 }
 
 @font-face {
   font-family: "SF-bold";
-  src: url("../font-bold.otf");
+  src: url("./lib/assets/fonts/font-bold.otf");
   font-weight: "bold";
 }
 
 @font-face {
   font-family: "SF-text-medium";
-  src: url("../text-medium.otf");
+  src: url("./lib/assets/fonts/text-medium.otf");
   /* font-weight: "500"; */
 }
 
