@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "SF";
+  src: url("../font-regular.otf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "SF-bold";
+  src: url("../font-bold.otf");
+  font-weight: "bold";
+}
+
+@font-face {
+  font-family: "SF-text-medium";
+  src: url("../text-medium.otf");
+  /* font-weight: "500"; */
+}
+
+* {
+  font-family: "SF";
+}
+
+:root {
+  --primary-bold-font: "SF-bold";
+  --primary-text-medium-font: "SF-text-medium";
+  --glassMaterialBackground: rgba(38, 38, 40, 0.6);
+  --glassMaterialShadowColor: rgba(0, 0, 0, 0.2);
+  --z-default: 1;
+}
