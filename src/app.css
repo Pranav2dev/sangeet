@@ -29,3 +29,8 @@
   --glassMaterialShadowColor: rgba(0, 0, 0, 0.2);
   --z-default: 1;
 }
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  visibility: hidden; /* or opacity: 0 */
+}

@@ -4,6 +4,8 @@
   let { handleMusicEnd = $bindable() ,songSelected}= $props();
 
   let loading: boolean = $state(false);
+  let progress:number  = $state(0)
+  let duration:number = $state(0)
   let audio: HTMLAudioElement | null = null;
 
   $effect(() => {
@@ -19,20 +21,27 @@
     const handleLoadedMetadata = () => {
       loading = false;
       audio?.play();
+      duration = audio?.duration ?? 0
       audioState = {
         isPlaying: true,
         isMuted: false,
       };
     };
 
+    function handleTimeUpdate(){
+        progress = audio?.currentTime ?? 0;
+    }
+
     audio.addEventListener("loadstart", handleLoadStart);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
     audio.addEventListener("ended",handleMusicEnd)
+    audio.addEventListener("timeupdate",handleTimeUpdate)
     return () => {
       audio?.pause();
 
       audio?.removeEventListener("loadstart", handleLoadStart);
       audio?.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio?.removeEventListener("timeupdate",handleTimeUpdate)
 
       audio = null;
     };
@@ -59,6 +68,15 @@
       };
     }
   }
+
+
+  const handleRange = (e:any) => {
+    if (audio) {
+      audio.currentTime = e.target.value
+    }
+    // progress = e.target.value
+
+  }
 </script>
 
 <!-- <audio src={props.songSelected.audio_url}
@@ -73,7 +91,7 @@ bind:this={audio}
       <div
         class="w-full h-full px-5 flex items-center justify-between bg-transparent"
       >
-        <div class="flex items-center gap-3 xxl:w-[60%] xl:w-[60%] lg:w-[60%] sm:w-[60%] w-[60%]">
+        <div class="flex items-center gap-3 xxl:w-[70%] xl:w-[70%] lg:w-[70%] sm:w-[60%] w-[60%]">
           <img
             src={songSelected.poster_url}
             class="w-10 rounded-lg border border-[gray]"
@@ -90,6 +108,8 @@ bind:this={audio}
             <span class="text-xs desc text-nowrap overflow-hidden"
               >{songSelected.artists}</span
             >
+
+            <input oninput={handleRange} step="1.0" max={duration} bind:value={progress} type="range" class="range"/>
           </div>
         </div>
 
@@ -118,6 +138,12 @@ bind:this={audio}
 </div>
 
 <style>
+.range{
+  height: 4px;
+margin-top: 3px;
+}
+
+
   .name {
     font-family: var(--primary-bold-font);
     letter-spacing: 0.5px;
