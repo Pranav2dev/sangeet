@@ -1,11 +1,11 @@
 <script lang="ts">
   import Play from "@lucide/svelte/icons/play";
   import Pause from "@lucide/svelte/icons/pause";
-  let { handleMusicEnd = $bindable() ,songSelected}= $props();
+  let { handleMusicEnd = $bindable(), songSelected } = $props();
 
   let loading: boolean = $state(false);
-  let progress:number  = $state(0)
-  let duration:number = $state(0)
+  let progress: number = $state(0);
+  let duration: number = $state(0);
   let audio: HTMLAudioElement | null = null;
 
   $effect(() => {
@@ -21,27 +21,27 @@
     const handleLoadedMetadata = () => {
       loading = false;
       audio?.play();
-      duration = audio?.duration ?? 0
+      duration = audio?.duration ?? 0;
       audioState = {
         isPlaying: true,
         isMuted: false,
       };
     };
 
-    function handleTimeUpdate(){
-        progress = audio?.currentTime ?? 0;
+    function handleTimeUpdate() {
+      progress = audio?.currentTime ?? 0;
     }
 
     audio.addEventListener("loadstart", handleLoadStart);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
-    audio.addEventListener("ended",handleMusicEnd)
-    audio.addEventListener("timeupdate",handleTimeUpdate)
+    audio.addEventListener("ended", handleMusicEnd);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
     return () => {
       audio?.pause();
 
       audio?.removeEventListener("loadstart", handleLoadStart);
       audio?.removeEventListener("loadedmetadata", handleLoadedMetadata);
-      audio?.removeEventListener("timeupdate",handleTimeUpdate)
+      audio?.removeEventListener("timeupdate", handleTimeUpdate);
 
       audio = null;
     };
@@ -69,14 +69,12 @@
     }
   }
 
-
-  const handleRange = (e:any) => {
+  const handleRange = (e: any) => {
     if (audio) {
-      audio.currentTime = e.target.value
+      audio.currentTime = e.target.value;
     }
     // progress = e.target.value
-
-  }
+  };
 </script>
 
 <!-- <audio src={props.songSelected.audio_url}
@@ -91,7 +89,9 @@ bind:this={audio}
       <div
         class="w-full h-full px-5 flex items-center justify-between bg-transparent"
       >
-        <div class="flex items-center gap-3 xxl:w-[70%] xl:w-[70%] lg:w-[70%] sm:w-[60%] w-[60%]">
+        <div
+          class="flex items-center gap-3 xxl:w-[70%] xl:w-[70%] lg:w-[70%] sm:w-[60%] w-[60%]"
+        >
           <img
             src={songSelected.poster_url}
             class="w-10 rounded-lg border border-[gray]"
@@ -109,7 +109,14 @@ bind:this={audio}
               >{songSelected.artists}</span
             >
 
-            <input oninput={handleRange} step="1.0" max={duration} bind:value={progress} type="range" class="range"/>
+            <input
+              oninput={handleRange}
+              step="1.0"
+              max={duration}
+              bind:value={progress}
+              type="range"
+              class="range"
+            />
           </div>
         </div>
 
@@ -120,7 +127,7 @@ bind:this={audio}
           >
             {#if loading}
               <!-- <img src="https://imgs.search.brave.com/Zjbyyja9SKpTq9dj8pBS7C3KH6CQDhxlzkMrJqQBPxk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/OS1DaW8zZlRtbkFB/QUFBTS9mYWtlLWxv/YWRpbmctbG9hZGlu/Zy5naWY.gif" class="w-10 h-10" alt=""> -->
-               <h3 class="text-xs text-white animate-pulse">Loading...</h3>
+              <h3 class="text-xs text-white animate-pulse">Loading...</h3>
             {:else if !audioState.isPlaying}
               <Play size={20} color="white" />
             {:else}
@@ -138,11 +145,10 @@ bind:this={audio}
 </div>
 
 <style>
-.range{
-  height: 4px;
-margin-top: 3px;
-}
-
+  .range {
+    height: 4px;
+    margin-top: 3px;
+  }
 
   .name {
     font-family: var(--primary-bold-font);
@@ -172,10 +178,9 @@ margin-top: 3px;
     z-index: var(--z-default);
   }
 
-
-  @media (max-width:780px){
-    .bottom-player{
-    width: 90%;
+  @media (max-width: 780px) {
+    .bottom-player {
+      width: 90%;
     }
   }
 

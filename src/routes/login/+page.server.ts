@@ -19,11 +19,7 @@ export const actions = {
     }
 
     if (result.message === "Success Created Account") {
-      cookies.set("temp_token", result.token, {
-        path: "/",
-        httpOnly: true,
-        maxAge: 60 * 10,
-      });
+      sessionStorage.setItem("temp_token", result.token);
       redirect(302, "/onboarding");
     } else {
       cookies.set("token", result.token, {
